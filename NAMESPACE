@@ -1,0 +1,3 @@
+import(FactoMineR)
+
+export(burt,conc.ellipse,contrib,csMCA,dichotom,dimcontrib,dimdesc.MCA,dimeta2,getindexcat,homog.test,indsup,medoids,modif.rate,multiMCA,pem,plot.csMCA,plot.multiMCA,plot.speMCA,plot.stMCA,speMCA,stMCA,textindsup,textvarsup,varsup)
