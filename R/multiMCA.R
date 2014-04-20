@@ -1,4 +1,4 @@
-multiMCA <- function(l_mca,ncp=5) {
+multiMCA <- function(l_mca,ncp=5,compute.rv=FALSE) {
   co <- data.frame(lapply(l_mca,function(x) x$ind$coord/x$eig[[1]][1]))
   if(attr(l_mca[[1]],'class')[1] %in% c('MCA','speMCA')) wt <- l_mca[[1]]$call$row.w
   if(attr(l_mca[[1]],'class')[1] == 'csMCA') wt <- l_mca[[1]]$call$row.w[l_mca[[1]]$call$subcloud]
@@ -38,14 +38,16 @@ multiMCA <- function(l_mca,ncp=5) {
   afm$eig <- as.list(afm$eig)
   l <- lapply(l_mca,function(x) x$ind$coord)
   l[[length(l)+1]] <- afm$ind$coord
-  rv <- matrix(0,nrow=length(l),ncol=length(l))
-  for(i in 2:length(l)) {
-    for(j in 1:(i-1)) rv[i,j] <- coeffRV(l[[i]],l[[j]])$rv
-    }
-  rv <- rv+t(rv)
-  diag(rv) <- 1
-  rownames(rv) <- c(paste('mca',1:length(l_mca),sep=''),'mfa')
-  colnames(rv) <- rownames(rv)
-  afm$RV <- rv
+  if(compute.rv==TRUE) { #new
+      rv <- matrix(0,nrow=length(l),ncol=length(l))
+      for(i in 2:length(l)) {
+	for(j in 1:(i-1)) rv[i,j] <- coeffRV(l[[i]],l[[j]])$rv
+	}
+      rv <- rv+t(rv)
+      diag(rv) <- 1
+      rownames(rv) <- c(paste('mca',1:length(l_mca),sep=''),'mfa')
+      colnames(rv) <- rownames(rv)
+      afm$RV <- rv
+      } # new
   return(afm)
   }

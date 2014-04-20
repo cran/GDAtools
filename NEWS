@@ -1,0 +1,18 @@
+## ========
+Version 1.1
+
+New functions:
+  - wtable(): works as table() but allows weights and shows NAs as default
+  - prop.wtable(): works as prop.table() but allows weights and shows NAs as default
+
+Changes in existing functions:
+  - multiMCA(): RV computation is now an option, with FALSE as default,
+    which makes the function execute faster
+
+Bug fixes:
+  - textvarsup(): there was an error with the supplementary 
+    variable labels when resmca was of class "csMCA".
+
+Error fixes:
+  - textvarsup(): plots supplementary variables on the cloud of categories (and not
+    the cloud of individuals as it was mentioned in help).

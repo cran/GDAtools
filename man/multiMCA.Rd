@@ -9,11 +9,13 @@ Performs Multiple Factor Analysis, drawing on the work of Escoffier and Pages (1
 MCA variants (e.g. specific MCA or class specific MCA) as inputs.
 }
 
-\usage{multiMCA(l_mca, ncp = 5)}
+\usage{multiMCA(l_mca, ncp = 5, compute.rv = FALSE)}
 
 \arguments{
   \item{l_mca}{a list of objects of class \code{MCA}, \code{speMCA} or \code{csMCA}}
   \item{ncp}{number of dimensions kept in the results (default is 5)}
+  \item{compute.rv}{whether RV coefficients should be computed or not (default is FALSE, which makes the function 
+                    execute faster)}
 }
 
 \details{

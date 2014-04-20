@@ -4,7 +4,7 @@
 
 \title{Adds a categorical supplementary variable to a MCA graph}
 
-\description{Adds a categorical supplementary variable to a MCA graph of the cloud of the individuals.}
+\description{Adds a categorical supplementary variable to a MCA graph of the cloud of categories.}
 
 \usage{textvarsup(resmca, var, sel = 1:nlevels(var), axes = c(1, 2), 
                   col = "black", app = 0, vname = NULL)
@@ -31,12 +31,12 @@
 \examples{
 ## Performs a specific MCA on 'Music' example data set
 ## ignoring every 'NA' (i.e. 'not available') categories,
-## plots the cloud of individuals,
+## plots the cloud of categories,
 ## and then adds gender and age supplementary categories.
 data(Music)
 getindexcat(Music)
 mca <- speMCA(Music[,1:5],excl=c(3,6,9,12,15))
-plot(mca,type='i')
+plot(mca,col='gray')
 textvarsup(mca,Music$Gender,col='darkred')
 textvarsup(mca,Music$Age,sel=c(1,3),col='orange',vname='age',app=1)
 }

@@ -29,7 +29,7 @@ categories contributions and variables contributions.
 
 \references{
 Robette, Bry and Roueff, 2014, "Un dialogue de sourds dans le theatre statistique? Analyse geometrique des 
-donnees et effets de structure", \emph{forthcoming}
+donnees et effets de structure", [http://nicolas.robette.free.fr/publis.html], \emph{forthcoming}.
 }
 
 \author{Nicolas Robette}
