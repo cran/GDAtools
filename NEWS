@@ -1,4 +1,24 @@
 ## ========
+Version 1.3
+
+Changes in existing functions:
+  - dimdesc.MCA(): now uses weights
+
+Bug fixes:
+  - dimdesc.MCA(): problem of compatibility next to a FactoMineR update
+
+
+## ========
+Version 1.2
+
+New functions:
+  - dimvtest(): computes test-values for supplementary variables
+
+Changes in existing functions:
+  - dimeta2(): now allows 'stMCA' objects
+
+
+## ========
 Version 1.1
 
 New functions:

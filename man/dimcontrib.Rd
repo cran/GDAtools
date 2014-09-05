@@ -43,7 +43,7 @@ Le Roux B. and Rouanet H., \emph{Geometric Data Analysis: From Correspondence An
 \examples{
 ## Performs a specific MCA on 'Music' example data set
 ## ignoring every 'NA' (i.e. 'not available') categories,
-## and then describe the contributions to axes.
+## and then describes the contributions to axes.
 data(Music)
 getindexcat(Music[,1:5])
 mca <- speMCA(Music[,1:5],excl=c(3,6,9,12,15))

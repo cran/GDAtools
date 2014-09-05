@@ -1,6 +1,6 @@
-e3a232619f93f9b7f6cc571147b8a773 *DESCRIPTION
-a2331f94e54f2b5392a74f77c612b4c0 *NAMESPACE
-c11ba6e1e516b22895e6404330bbbe45 *NEWS
+36780c7af688460a11fb726f800d3f60 *DESCRIPTION
+7d28c1b8f9deaef9dc3b75627d623f9f *NAMESPACE
+a31d9d153eace0561226b24b5d340db0 *NEWS
 f9a9e68b815f2b5424169291fca7ee3b *R/GDAtools-internal.R
 2da1739639d0303cbf9bf006c58df3fb *R/burt.R
 226404dba18b047a489e6f8a1b22d406 *R/conc.ellipse.R
@@ -8,8 +8,9 @@ f9a9e68b815f2b5424169291fca7ee3b *R/GDAtools-internal.R
 b9c00470af8523e8ab046b0a33791311 *R/csMCA.R
 a58f016d6f149a0282e57c768801e72e *R/dichotom.R
 6ff124d833aca99cd6f3de510cdd8fd8 *R/dimcontrib.R
-cff0368b69383080b747ee93c95f5b2d *R/dimdesc.MCA.R
-22923584c6853136551ad841617332e5 *R/dimeta2.R
+30b58477e5199eac79411361833960fc *R/dimdesc.MCA.R
+422506c63e9a5cd621fd7ac2e7e8173d *R/dimeta2.R
+33c13c6ad50b363bda15cc19d9cbcc1e *R/dimvtest.R
 cd34e7315a8adaaa4673af32c974cd9d *R/getindexcat.R
 057927adab60366d19dcea37f74e59cd *R/homog.test.R
 1e3e38fb17bd2e0fd8437405ba37cd4f *R/indsup.R
@@ -37,9 +38,10 @@ b096c4f550a805ef7d86f581cebd93d9 *man/conc.ellipse.Rd
 cd1e37f5beb9126b1efdd4b689c7ac77 *man/contrib.Rd
 15f5594b9f9a59c39861b77c87d5582c *man/csMCA.Rd
 89ed683f7551cbbd37eaf668d36d0816 *man/dichotom.Rd
-dda29400e8741eb9ec37db9d1fcd216e *man/dimcontrib.Rd
+5b3115e158ccdab8faf2f5a65ab6487b *man/dimcontrib.Rd
 fb1bdd672fda930647f1ff8d8d1bc24c *man/dimdesc.MCA.Rd
-9a8bc3e236894ddd6eb23e11f2c21f0d *man/dimeta2.Rd
+8ff9472500325cb1ab93f687754b2917 *man/dimeta2.Rd
+5413e3c1f0526166672e28de4939c3da *man/dimvtest.Rd
 3933ece812a2de8b1691639fb67117b4 *man/getindexcat.Rd
 00b6372ecdce8a1382678646b5f377a3 *man/homog.test.Rd
 0cbe27214cdf1a227bd16048faa0c380 *man/indsup.Rd

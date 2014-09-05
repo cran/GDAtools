@@ -1,14 +1,14 @@
-\name{dimeta2}
+\name{dimvtest}
 
-\alias{dimeta2}
+\alias{dimvtest}
 
-\title{Describes the eta2 of a list of supplementary variables for the axes of MCA and variants of MCA}
+\title{Describes the test-values of a list of supplementary variables for the axes of MCA and variants of MCA}
 
 \description{
-Computes eta2 for a list of supplementary variables. It allows to analyze variants of MCA, such as 'specific' MCA or 'class specific' MCA.
+Computes test-values for a list of supplementary variables. It allows to analyze variants of MCA, such as 'specific' MCA or 'class specific' MCA.
 }
 
-\usage{dimeta2(resmca, l, n, dim = 1:resmca$call$ncp)}
+\usage{dimvtest(resmca, l, n, dim = 1:resmca$call$ncp)}
 
 \arguments{
   \item{resmca}{object of class \code{'MCA'}, \code{'speMCA'}, \code{'csMCA'} or \code{'stMCA'}}
@@ -18,7 +18,11 @@ Computes eta2 for a list of supplementary variables. It allows to analyze varian
 }
 
 \value{
-  Returns a data frame with supplementary variables as rows and axes as columns.
+  Returns a list of data frames giving the test-values of the supplementary categories for the different axes.
+}
+
+\details{
+  Test-values are ordered and only those higher than 2.58 (or lower than -2.58) are kept.
 }
 
 \references{
@@ -30,17 +34,17 @@ Le Roux B. and Rouanet H., \emph{Geometric Data Analysis: From Correspondence An
 \author{Nicolas Robette}
 
 \seealso{
-\code{\link{dimdesc}}, \code{\link{dimdesc.MCA}}, \code{\link{dimcontrib}}, \code{\link{condes}}, \code{\link{speMCA}}, \code{\link{csMCA}}
+\code{\link{dimdesc}}, \code{\link{dimdesc.MCA}}, \code{\link{dimeta2}}, \code{\link{dimcontrib}}, \code{\link{condes}}, \code{\link{speMCA}}, \code{\link{csMCA}}
 }
 
 \examples{
 ## Performs a specific MCA on 'Music' example data set
 ## ignoring every 'NA' (i.e. 'not available') categories,
-## and then describes the eta2 for Gender and Age (axes 1 and 2).
+## and then describes the test-values for Gender and Age (axes 1 and 2).
 data(Music)
 getindexcat(Music[,1:5])
 mca <- speMCA(Music[,1:5],excl=c(3,6,9,12,15))
-dimeta2(mca,list(Music$Gender,Music$Age),c('Gender','Age'),dim=1:2)
+dimvtest(mca,list(Music$Gender,Music$Age),c('Gender','Age'),dim=1:2)
 }
 
 \keyword{ multivariate }
