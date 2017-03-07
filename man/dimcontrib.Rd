@@ -5,8 +5,8 @@
 \title{Describes the contributions to axes for MCA and variants of MCA}
 
 \description{
-Identifies the categories and individuals that contribute the most characteristic according to each dimension obtained 
-by a Factor Analysis. It allows to analyze variants of MCA, such as 'specific' MCA or 'class specific' MCA.
+Identifies the categories and individuals that contribute the most to each dimension obtained 
+by a Multiple Correspondence Analysis. It allows to analyze variants of MCA, such as 'specific' MCA or 'class specific' MCA.
 }
 
 \usage{dimcontrib(resmca, dim = c(1,2), best = TRUE)}

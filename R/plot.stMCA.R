@@ -1,5 +1,5 @@
 plot.stMCA <-
- function(x,type='v',axes=1:2,points='all',groups=NULL,col='dodgerblue4',app=0, ...) {
+ function(x,type='v',axes=1:2,points='all',threshold=2.58,groups=NULL,col='dodgerblue4',app=0, ...) {
   if(x$call$input.mca=='multiMCA') {
     if(is.null(groups)) groups <- 1:x$call$ngroups
     z <- x
@@ -14,9 +14,9 @@ plot.stMCA <-
     cmax <- apply(x$var$coord[,axes],2,max)*1.1
     clim <- cbind(cmin,cmax)
     if(points=='all') condi <- 1:nrow(x$var$coord)
-    if (points=='besth') condi <- abs(x$var$v.test[,axes[1]])>=2.58
-    if (points=='bestv') condi <- abs(x$var$v.test[,axes[2]])>=2.58
-    if (points=='best') condi <- abs(x$var$v.test[,axes[1]])>=2.58 | abs(x$var$v.test[,axes[2]])>=2.58
+    if (points=='besth') condi <- abs(x$var$v.test[,axes[1]])>=threshold
+    if (points=='bestv') condi <- abs(x$var$v.test[,axes[2]])>=threshold
+    if (points=='best') condi <- abs(x$var$v.test[,axes[1]])>=threshold | abs(x$var$v.test[,axes[2]])>=threshold
     coord <- x$var$coord[condi,axes]
     prop <- round(x$var$weight[-x$call$excl]/nrow(x$ind$coord)*2+0.5,1)[condi]
     plot(coord,col='white',xlim=clim[1,],ylim=clim[2,],xlab=tit1,ylab=tit2,...)

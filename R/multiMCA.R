@@ -1,3 +1,11 @@
+#library(GDAtools)
+#library(FactoMineR)
+#data(Taste)
+#mca1 <- speMCA(Taste[,1:5],excl=c(3,6,9,12,15))
+#mca2 <- speMCA(Taste[,6:11],excl=c(3,6,9,12,15,18))
+#l_mca = list(mca1,mca2)
+#ncp=5
+
 multiMCA <- function(l_mca,ncp=5,compute.rv=FALSE) {
   co <- data.frame(lapply(l_mca,function(x) x$ind$coord/x$eig[[1]][1]))
   if(attr(l_mca[[1]],'class')[1] %in% c('MCA','speMCA')) wt <- l_mca[[1]]$call$row.w
@@ -6,6 +14,7 @@ multiMCA <- function(l_mca,ncp=5,compute.rv=FALSE) {
   afm$call$row.w <- wt
   attr(afm,'class') <- c('multiMCA','list')
   ngroups <- length(l_mca)
+  afm$my.mca <- l_mca
   VAR <- list()
   for(i in 1:ngroups) {
     if(attr(l_mca[[i]],'class')[1] %in% c('MCA','speMCA')) DATA <- l_mca[[i]]$call$X
@@ -33,7 +42,6 @@ multiMCA <- function(l_mca,ncp=5,compute.rv=FALSE) {
   rownames(correl) <- paste('mca',1:length(l_mca),sep='')
   colnames(correl) <- paste('Dim',1:ncp,sep='.')
   afm$group <- list(contrib=round(contrib,2),correl=round(correl,3))
-  afm$my.mca <- l_mca
   afm$call$ngroups <- ngroups
   afm$eig <- as.list(afm$eig)
   l <- lapply(l_mca,function(x) x$ind$coord)

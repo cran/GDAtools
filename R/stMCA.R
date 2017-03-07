@@ -1,3 +1,5 @@
+#resmca=afm
+#str(control)
 stMCA <- function(resmca,control) {
   if(attr(resmca,'class')[1] %in% c('MCA','speMCA','csMCA')) temp <- resmca
   if(attr(resmca,'class')[1]=='multiMCA') temp <- resmca$my.mca[[1]]
@@ -9,7 +11,7 @@ stMCA <- function(resmca,control) {
   if(attr(temp,'class')[1] == 'csMCA') {
      wt <- temp$call$row.w[temp$call$subcloud]
      X <- temp$call$X[temp$call$subcloud,]
-     covariate <- lapply(control,function(x) x[temp$call$subcloud])
+     covariate <- lapply(control,function(x) x[temp$call$subcloud]) ## METTRE UNE CONDITION SELON LONGUEUR DE LA VARIABLE ???
      }
   f <- 'resmca$ind$coord ~ covariate[[1]]'
   if(length(covariate)>1) {
@@ -54,7 +56,11 @@ stMCA <- function(resmca,control) {
       if(attr(resmca$my.mca[[i]],'class')[1] == 'csMCA') DATA <- resmca$my.mca[[i]]$call$X[resmca$my.mca[[i]]$call$subcloud,]
       cond1 <- colSums(apply(dichotom(DATA),2,as.numeric),na.rm=TRUE)>0
       cond2 <- !((1:ncol(dichotom(DATA))) %in% resmca$my.mca[[i]]$call$excl)
+      acp$call$row.w <- acp$call$row.w.init # NEW 2016-04-28 !!
       coord <- do.call('rbind',lapply(as.list(colnames(DATA)), function(x) varsup(acp,DATA[,x])$coord))[cond2[cond1],]
+      #str(acp$call)
+      #x<-colnames(DATA)[1]
+      #varsup(acp,DATA[,x])$coord
       rownames(coord) <- colnames(dichotom(DATA))[cond1 & cond2]
       cos2 <- do.call('rbind',lapply(as.list(colnames(DATA)), function(x) varsup(acp,DATA[,x])$cos2))[cond2[cond1],]
       rownames(cos2) <- rownames(coord)
@@ -71,6 +77,7 @@ stMCA <- function(resmca,control) {
     acp$call$quali.sup <- acp$quali.sup <- NULL
     acp$call$X <- acp$call$X[,1:ncol(resmca$ind$coord)]
     acp$call$ngroups <- resmca$call$ngroups
+    acp$my.mca <- resmca$my.mca # NEW 2016-04-28
     }
   #acp$eig$mrate <- round(acp$eig[[2]],1)
   #acp$eig$cum.mrate <- cumsum(acp$eig$mrate)    

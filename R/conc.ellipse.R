@@ -3,14 +3,19 @@ conc.ellipse <- function(resmca,var,sel=1:length(levels(varb)),col=rainbow(lengt
   m[,1] <- m[,1]*resmca$svd$vs[axes[1]]
   m[,2] <- m[,2]*resmca$svd$vs[axes[2]]
   v <- varsup(resmca,var)$var[1:length(levels(var)),axes]
-  classe <- class(resmca)[1] # new
-  if(classe=='stMCA') classe=resmca$call$input.mca # new
-  if(classe == 'csMCA') { # new
-     varb <- var[resmca$call$subcloud]
+  classe <- class(resmca)[1]
+  if(classe=='stMCA') classe=resmca$call$input.mca
+  if(classe == 'csMCA') {
+     #varb <- var[resmca$call$subcloud]
+     if(length(var)==nrow(resmca$call$X)) varb <- var[resmca$call$subcloud]
+     if(length(var)==length(resmca$call$marge.row)) varb <- var
      wt <-  resmca$call$row.w[resmca$call$subcloud]
      }
-  if(classe %in% c('MCA','speMCA','multiMCA')) { # new
+  if(classe %in% c('MCA','speMCA','multiMCA')) {
      varb <- var
+     if(classe=='multiMCA') { # new
+        if(length(var)==nrow(resmca$my.mca[[1]]$call$X)) varb <- var[resmca$my.mca[[1]]$call$subcloud] # new
+        } # new
      wt <-  resmca$call$row.w
      }
   c <- vector(length=length(levels(var)))

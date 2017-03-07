@@ -7,7 +7,7 @@
 \description{Plots a 'standardized' Multiple Correspondence Analysis (resulting from \code{\link{stMCA}} function), 
 i.e. the clouds of individuals or categories.}
 
-\usage{\method{plot}{stMCA}(x, type = "v", axes = 1:2, points = "all", groups=NULL, 
+\usage{\method{plot}{stMCA}(x, type = "v", axes = 1:2, points = "all", threshold = 2.58, groups=NULL, 
                             col = "dodgerblue4", app = 0, \dots)
 }
 
@@ -19,6 +19,7 @@ i.e. the clouds of individuals or categories.}
                 who are the most correlated to horizontal axis are plotted; if 'bestv' only those who are the most 
                 correlated to vertical axis are plotted; if 'best' only those who are the most coorelated to horizontal 
                 or vertical axis are plotted.}
+  \item{threshold}{numeric value. V-test minimal value for the selection of plotted categories.}
   \item{groups}{only if x$call$input.mca = 'multiMCA', i.e. if the MCA standardized to x object was a \code{multiMCA} object. 
                 Numeric vector specifying the groups of categories to plot. By default, every groups of categories will be plotted}
   \item{col}{color for the points of the individuals or for the labels of the categories (default is 'dodgerblue4')}

@@ -1,4 +1,19 @@
 ## ========
+Version 1.4
+
+New functions:
+  - translate.logit(): translates logit models coefficients into percentages
+  - tabcontrib(): displays the categories contributing most to MCA dimensions
+
+Changes in existing functions:
+  - varsup(): with csMCA, the length of variable argument can be equal to the size of the cloud or the subcloud
+  - textvarsup(): with csMCA, the length of variable argument can be equal to the size of the cloud or the subcloud
+  - conc.ellipse(): with csMCA, the length of variable argument can be equal to the size of the cloud or the subcloud
+  - plot.multiMCA(): 'threshold' argument, aimed at selecting the categories most associated to axes
+  - plot.stMCA(): 'threshold' argument, aimed at selecting the categories most associated to axes
+
+
+## ========
 Version 1.3
 
 Changes in existing functions:

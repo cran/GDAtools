@@ -1,4 +1,4 @@
-plot.multiMCA <- function(x,type='v',axes=c(1,2),points='all',groups=1:x$call$ngroups,col=rainbow(x$call$ngroups),app=0, ...) {
+plot.multiMCA <- function(x,type='v',axes=c(1,2),points='all',threshold=2.58,groups=1:x$call$ngroups,col=rainbow(x$call$ngroups),app=0, ...) {
   tit1 <- paste('Dim ',axes[1],' (',round(x$eig[[2]][axes[1]],1),'%)',sep='')
   tit2 <- paste('Dim ',axes[2],' (',round(x$eig[[2]][axes[2]],1),'%)',sep='')
   if (type=='v') {
@@ -10,9 +10,9 @@ plot.multiMCA <- function(x,type='v',axes=c(1,2),points='all',groups=1:x$call$ng
     for(i in 1:length(groups)) {
       var <- x$VAR[[groups[i]]]$coord
       if(points=='all') condi <- 1:nrow(var)
-      if(points=='besth') condi <- abs(x$VAR[[groups[i]]]$v.test[,axes[1]])>=2.58
-      if(points=='bestv') condi <- abs(x$VAR[[groups[i]]]$v.test[,axes[2]])>=2.58
-      if(points=='best') condi <- abs(x$VAR[[groups[i]]]$v.test[,axes[1]])>=2.58 | abs(x$VAR[[groups[i]]]$v.test[,axes[2]])>=2.58
+      if(points=='besth') condi <- abs(x$VAR[[groups[i]]]$v.test[,axes[1]])>=threshold
+      if(points=='bestv') condi <- abs(x$VAR[[groups[i]]]$v.test[,axes[2]])>=threshold
+      if(points=='best') condi <- abs(x$VAR[[groups[i]]]$v.test[,axes[1]])>=threshold | abs(x$VAR[[groups[i]]]$v.test[,axes[2]])>=threshold
       coord <- var[condi,axes]
       prop <- round(x$VAR[[groups[i]]]$weight[-x$my.mca[[groups[i]]]$call$excl]/nrow(x$ind$coord)*2+0.5,1)[condi]
       if(app==0) text(coord,rownames(coord),col=col[i],cex=1)

@@ -1,12 +1,25 @@
+#resmca=afm
+#var=age
+#var=factor(age[condi])
+
+#resmca=afm
+#var=DATA[,'FrenchPop']
+
 varsup <- function(resmca,var) {
         n <- sum(resmca$call$row.w)
         #n <- length(resmca$call$row.w)
         FK <- colSums(resmca$call$row.w*(dichotom(as.data.frame(factor(var)),out='numeric')))/n
-        classe <- class(resmca)[1] # new
-        if(classe=='stMCA') classe=resmca$call$input.mca # new
-        if(classe %in% c('MCA','speMCA','multiMCA')) { # new
+        classe <- class(resmca)[1]
+        if(classe=='stMCA') classe=resmca$call$input.mca
+        if(classe %in% c('MCA','speMCA','multiMCA')) {
            v <- factor(var)
            wt <- resmca$call$row.w
+           if(classe=='multiMCA') { # new
+              if(length(var)==nrow(resmca$my.mca[[1]]$call$X) & !is.null(resmca$my.mca[[1]]$call$subcloud)) { # new
+                 v <- factor(var[resmca$my.mca[[1]]$call$subcloud]) # new
+                 FK <- colSums(resmca$call$row.w*(dichotom(as.data.frame(v),out='numeric')))/n # new
+                 } # new
+              }
            ind <- resmca$ind$coord
            coord <- aggregate(wt*ind,list(v),sum)[,-1]/n/FK
            vrc <- aggregate(wt*ind*ind,list(v),sum)[,-1]/n/FK-coord*coord
@@ -14,8 +27,12 @@ varsup <- function(resmca,var) {
            cos2 <- coord*coord/((1/FK)-1)
            weight=n*FK
            }
-        if(classe == 'csMCA') { # new
-           v <- factor(var[resmca$call$subcloud])
+        if(classe == 'csMCA') {
+           if(length(var)==nrow(resmca$call$X)) { # new
+               v <- factor(var[resmca$call$subcloud]) # new
+               FK <- colSums(resmca$call$row.w*(dichotom(as.data.frame(v),out='numeric')))/n # new
+               } # new
+           if(length(var)==length(resmca$call$marge.row)) v <- factor(var) # new
            wt <- resmca$call$row.w[resmca$call$subcloud]
            #ind <- resmca$ind$coord[resmca$call$var %in% resmca$call$lev,]
            ind <- resmca$ind$coord
@@ -35,9 +52,9 @@ varsup <- function(resmca,var) {
         wi <- apply(vrc,2,weighted.mean,w=weight)
         be <- resmca$eig[[1]][1:resmca$call$ncp]-wi
         eta2 <- be/resmca$eig[[1]][1:resmca$call$ncp]
-	vrc <- rbind(vrc,wi,be,resmca$eig[[1]][1:resmca$call$ncp],eta2)
+	  vrc <- rbind(vrc,wi,be,resmca$eig[[1]][1:resmca$call$ncp],eta2)
         vrc <- round(vrc,6)
-	rownames(vrc) <- c(levels(v),'within','between','total','eta2')
+	  rownames(vrc) <- c(levels(v),'within','between','total','eta2')
         coord <- round(coord,6)
         v.test <- sqrt(cos2)*sqrt(length(v)-1)
         v.test <- (((abs(coord)+coord)/coord)-1)*v.test

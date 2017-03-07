@@ -7,7 +7,7 @@
 \description{Plots Multiple Factor Analysis data, resulting from \code{\link{multiMCA}} function.}
 
 \usage{
-\method{plot}{multiMCA}(x, type = "v", axes = c(1, 2), points = "all", 
+\method{plot}{multiMCA}(x, type = "v", axes = c(1, 2), points = "all", threshold = 2.58,
 groups = 1:x$call$ngroups, col = rainbow(x$call$ngroups), app = 0, \dots)
 }
 
@@ -19,6 +19,7 @@ groups = 1:x$call$ngroups, col = rainbow(x$call$ngroups), app = 0, \dots)
                 who are the most correlated to horizontal axis are plotted; if 'bestv' only those who are the most 
                 correlated to vertical axis are plotted; if 'best' only those who are the most coorelated to horizontal 
                 or vertical axis are plotted.}
+  \item{threshold}{numeric value. V-test minimal value for the selection of plotted categories.}
   \item{groups}{numeric vector specifying the groups of categories to plot. By default, every groups of categories will be plotted}
   \item{col}{a color for the points of the individuals or a vector of colors for the labels of the groups of categories
             (by default, rainbow palette is used)}
