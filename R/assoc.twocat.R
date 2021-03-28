@@ -1,43 +1,100 @@
+assoc.twocat <- function(x, y, weights=rep.int(1,length(x)), na_value=NULL, nperm=1000, distrib="asympt") {
 
-assoc.twocat <- function(x, y, w=rep.int(1,length(x)), na=TRUE) {
-
+  # add na level
+  if(!is.null(na_value)) {
+    x <- factor(x, levels=c(levels(x), na_value))
+    x[is.na(x)] <- na_value
+    y <- factor(y, levels=c(levels(y), na_value))
+    y[is.na(y)] <- na_value
+  }
+  
+  # drop empty levels
   x <- factor(x)
-  y <- factor(y)  # to drop empty levels
-  if(na) x <- addNA(x, TRUE)
-  if(na) y <- addNA(y, TRUE)
+  y <- factor(y)
   
-  xdic <- as.matrix(dichotom(x, out='numeric'))
-  ydic <- as.matrix(dichotom(y, out='numeric'))
-  tab <- t(xdic)%*%diag(w)%*%ydic
-  tab <- as.table(tab)
-  rownames(tab) <- gsub('data.','',rownames(tab))
-  colnames(tab) <- gsub('data.','',colnames(tab))
-  
+  # remove obs with na
+  idnona <- !is.na(x) & !is.na(y)
+  X <- x[idnona]
+  Y <- y[idnona]
+  W <- weights[idnona]
+    
+  # xdic <- as.matrix(dichotom(X, out='numeric'))
+  # ydic <- as.matrix(dichotom(Y, out='numeric'))
+  # t <- t(xdic)%*%diag(W)%*%ydic
+  t <- tapply(W, list(X,Y), sum)
+  tab <- as.table(t)
+  # rownames(tab) <- gsub('data.','',rownames(tab))
+  # colnames(tab) <- gsub('data.','',colnames(tab))
+
   freq <- addmargins(tab)
   prop <- round(400*prop.table(freq),1)
   rprop <- round(100*apply(freq, 2, function(x) 2*x/rowSums(freq)),1)
   cprop <- t(round(100*apply(freq, 1, function(x) 2*x/colSums(freq)),1))
 
-  phi <- matrix(NA, nrow=nlevels(x), ncol=nlevels(y))
-  for(i in 1:nlevels(x)) {
-    for(j in 1:nlevels(y)) {
-      # tab22 <- table(x==levels(x)[i], y==levels(y)[j])
-      x2dic <- as.matrix(dichotom(x==levels(x)[i], out='numeric'))
-      y2dic <- as.matrix(dichotom(y==levels(y)[j], out='numeric'))
-      tab22 <- t(x2dic)%*%diag(w)%*%y2dic
-      tab22 <- as.table(tab22)  
-      khi2 <- chisq.test(tab22, simulate.p.value=T, B=2)$statistic
-      signe <- sign(tab22[2,2]/rowSums(tab22)[2]-tab22[1,2]/rowSums(tab22)[1])
-      phi[i,j] <- round(signe*sqrt(khi2/sum(tab22)),3)
+  phi <- phi.table(x,y,weights=weights,digits=NULL)
+  
+  pem <- pem(x,y,weights=weights)
+
+  # t <- t(xdic)%*%diag(W)%*%ydic
+  # expected <- rowSums(t) %*% t(colSums(t)) / sum(t)
+  expected <- sapply(colSums(t), function(x) x*rowSums(t)/sum(t))
+  chi.squared <- sum((t-expected)*(t-expected)/expected)
+  cramer.v <- sqrt(chi.squared / (length(x)*(min(nrow(t),ncol(t))-1)))
+  expected <- as.table(expected)
+  
+  stdres <- (t-expected)/sqrt(expected)
+  stdres <- as.table(stdres)
+  
+  if(!is.null(nperm)) {
+    h0distrib <- numeric()
+    for(i in 1:nperm) {
+      permt <- table(x,sample(y))
+      permexp <- rowSums(permt) %*% t(colSums(permt)) / sum(permt)
+      h0distrib[i] <- sum((permt-permexp)*(permt-permexp)/permexp)
+    }
+    if(distrib=='approx') {
+      permutation.pvalue <- sum(chi.squared<=h0distrib)/nperm
+    } else {
+      fit <- MASS::fitdistr(h0distrib,"normal")$estimate
+      permutation.pvalue <- 1-stats::pnorm(chi.squared,fit[1],fit[2])   
     }
   }
-  rownames(phi) <- levels(x)
-  colnames(phi) <- levels(y)
-  #tab <- table(x,y)
+  if(is.null(nperm)) permutation.pvalue <- NULL
+
+  if(!is.null(nperm)) {  
+    ar <- array(NA, dim=c(nperm,nrow(phi),ncol(phi)))
+    for(i in 1:nperm) ar[i,,] <- GDAtools::phi.table(x,sample(y),weights=weights,digits=NULL)
+    ppval <- matrix(nrow=nrow(phi), ncol=ncol(phi))
+    for(i in 1:nrow(ppval)) { 
+      for(j in 1:ncol(ppval)) {
+        h0 <- ar[,i,j]
+        obs <- phi[i,j]
+        if(distrib=='approx') {
+          if(obs>=0) ppval[i,j] <- sum(obs<=h0)/nperm
+          if(obs<0) ppval[i,j] <- sum(obs>h0)/nperm
+        } else {
+          fit <- MASS::fitdistr(h0,"normal")$estimate
+          if(obs>=0) ppval[i,j] <- 1-stats::pnorm(obs,fit[1],fit[2])
+          if(obs<0) ppval[i,j] <- stats::pnorm(obs,fit[1],fit[2])
+        }
+    }}
+    ppval <- as.table(ppval)
+    dimnames(ppval) <- dimnames(phi)
+  }
+  if(is.null(nperm)) ppval <- NULL
   
-  khi2 <- chisq.test(tab, simulate.p.value=T, B=2)$statistic
-  v2.cramer <- khi2 / (sum(tab)*min(nlevels(x)-1,nlevels(y)-1))
-  names(v2.cramer) <- NULL
+  dimnames(expected) <- dimnames(phi)
+  dimnames(stdres) <- dimnames(phi)
   
-  return(list('freq'=freq, 'prop'=prop, 'rprop'=rprop, 'cprop'=cprop, 'v2.cramer'=v2.cramer, 'phi'=phi))
+  gather <- cbind.data.frame(data.frame(tab), 
+                             prop=data.frame(prop.table(tab))$Freq,
+                             rprop=data.frame(prop.table(tab,1))$Freq,
+                             cprop=data.frame(prop.table(tab,2))$Freq,
+                             expected=data.frame(expected)$Freq,
+                             std.residuals=data.frame(stdres)$Freq,
+                             phi=data.frame(phi)$Freq)
+  if(!is.null(ppval)) gather <- cbind.data.frame(gather, perm.pval=data.frame(ppval)$Freq)
+  gather <- cbind.data.frame(gather, local.pem=data.frame(pem$peml)$Freq)
+  
+  return(list('freq'=freq, 'prop'=prop, 'rprop'=rprop, 'cprop'=cprop, 'expected'=expected, 'chi.squared'=chi.squared, 'cramer.v'=cramer.v, 'permutation.pvalue'=permutation.pvalue, 'pearson.residuals'=stdres, 'phi'=phi, 'phi.perm.pval'=ppval, 'local.pem'=pem$peml, 'global.pem'=pem$pemg, 'gather'=gather))
 }
