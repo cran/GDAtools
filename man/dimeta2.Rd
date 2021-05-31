@@ -2,19 +2,18 @@
 
 \alias{dimeta2}
 
-\title{Describes the eta2 of a list of supplementary variables for the axes of MCA and variants of MCA}
+\title{Describes the eta2 of supplementary variables for the axes of a MCA}
 
 \description{
 Computes eta2 for a list of supplementary variables. It allows to analyze variants of MCA, such as 'specific' MCA or 'class specific' MCA.
 }
 
-\usage{dimeta2(resmca, l, n, dim = 1:resmca$call$ncp)}
+\usage{dimeta2(resmca, vars, dim = c(1,2))}
 
 \arguments{
-  \item{resmca}{object of class \code{'MCA'}, \code{'speMCA'}, \code{'csMCA'} or \code{'stMCA'}}
-  \item{l}{a list of supplementary variables}
-  \item{n}{a vector of names for the supplementary variables. The vector's length must be equal to \code{'l'}'s length}
-  \item{dim}{the axes for which eta2 are computed. Default is 1:ncp}
+  \item{resmca}{object of class \code{MCA}, \code{speMCA}, \code{csMCA}, \code{stMCA} or \code{multiMCA}}
+  \item{vars}{a data frame of supplementary variables}
+  \item{dim}{the axes for which eta2 are computed. Default is c(1,2)}
 }
 
 \value{
@@ -30,7 +29,7 @@ Le Roux B. and Rouanet H., \emph{Geometric Data Analysis: From Correspondence An
 \author{Nicolas Robette}
 
 \seealso{
-\code{\link{dimdesc}}, \code{\link{dimdesc.MCA}}, \code{\link{dimcontrib}}, \code{\link{condes}}, \code{\link{speMCA}}, \code{\link{csMCA}}
+\code{\link{dimdesc}}, \code{\link{dimdescr}}, \code{\link{dimcontrib}}, \code{\link{condes}}, \code{\link{speMCA}}, \code{\link{csMCA}}, \code{\link{dimtypicality}}
 }
 
 \examples{
@@ -40,7 +39,7 @@ Le Roux B. and Rouanet H., \emph{Geometric Data Analysis: From Correspondence An
 data(Music)
 getindexcat(Music[,1:5])
 mca <- speMCA(Music[,1:5],excl=c(3,6,9,12,15))
-dimeta2(mca,list(Music$Gender,Music$Age),c('Gender','Age'),dim=1:2)
+dimeta2(mca, Music[,c("Gender","Age")])
 }
 
 \keyword{ multivariate }

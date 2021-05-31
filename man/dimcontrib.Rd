@@ -2,7 +2,7 @@
 
 \alias{dimcontrib}
 
-\title{Describes the contributions to axes for MCA and variants of MCA}
+\title{Describes the contributions to axes for a MCA}
 
 \description{
 Identifies the categories and individuals that contribute the most to each dimension obtained 
@@ -37,7 +37,7 @@ Le Roux B. and Rouanet H., \emph{Geometric Data Analysis: From Correspondence An
 \author{Nicolas Robette}
 
 \seealso{
-\code{\link{dimdesc}}, \code{\link{dimdesc.MCA}}, \code{\link{dimeta2}}, \code{\link{condes}}, \code{\link{speMCA}}, \code{\link{csMCA}}
+\code{\link{dimdescr}}, \code{\link{dimeta2}}, \code{\link{dimtypicality}}, \code{\link{condes}}, \code{\link{speMCA}}, \code{\link{csMCA}}
 }
 
 \examples{

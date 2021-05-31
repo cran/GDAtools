@@ -1,4 +1,4 @@
-assoc.twocat <- function(x, y, weights=rep.int(1,length(x)), na_value=NULL, nperm=1000, distrib="asympt") {
+assoc.twocat <- function(x, y, weights=rep.int(1,length(x)), na_value=NULL, nperm=NULL, distrib="asympt") {
 
   # add na level
   if(!is.null(na_value)) {
@@ -22,14 +22,19 @@ assoc.twocat <- function(x, y, weights=rep.int(1,length(x)), na_value=NULL, nper
   # ydic <- as.matrix(dichotom(Y, out='numeric'))
   # t <- t(xdic)%*%diag(W)%*%ydic
   t <- tapply(W, list(X,Y), sum)
+  
+  # remplace les cases vides par des 0  
+  t[is.na(t)] <- 0
+
   tab <- as.table(t)
+
   # rownames(tab) <- gsub('data.','',rownames(tab))
   # colnames(tab) <- gsub('data.','',colnames(tab))
 
   freq <- addmargins(tab)
-  prop <- round(400*prop.table(freq),1)
-  rprop <- round(100*apply(freq, 2, function(x) 2*x/rowSums(freq)),1)
-  cprop <- t(round(100*apply(freq, 1, function(x) 2*x/colSums(freq)),1))
+  prop <- 400*prop.table(freq)
+  rprop <- 100*apply(freq, 2, function(x) 2*x/rowSums(freq))
+  cprop <- t(100*apply(freq, 1, function(x) 2*x/colSums(freq)))
 
   phi <- phi.table(x,y,weights=weights,digits=NULL)
   

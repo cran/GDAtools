@@ -2,14 +2,14 @@
 
 \alias{modif.rate}
 
-\title{Computes the modified rates of variance of a correspondence analysis}
+\title{Computes Benzecri's modified rates of variance of a MCA}
 
-\description{Computes the modified rates of variance of a correspondence analysis.}
+\description{Computes the modified rates of variance of a multiple correspondence analysis.}
 
 \usage{modif.rate(resmca)}
 
 \arguments{
-  \item{resmca}{object of class \code{'MCA'}, \code{'speMCA'} or \code{'csMCA'}}
+  \item{resmca}{object of class \code{MCA}, \code{speMCA}, \code{csMCA}, \code{stMCA} or \code{multiMCA}}
 }
 
 \details{

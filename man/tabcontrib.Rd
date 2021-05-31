@@ -2,17 +2,17 @@
 
 \alias{tabcontrib}
 
-\title{Displays the categories contributing most to axes for MCA and variants of MCA}
+\title{Displays the categories contributing most to axes for a MCA}
 
 \description{
 Identifies the categories that contribute the most to a given dimension of a Multiple Correspondence 
-Analysis and organizes them into a fancy table. It allows to analyze variants of MCA, such as 'specific' MCA or 'class specific' MCA.
+Analysis and organizes these informations into a fancy table. It allows to analyze variants of MCA, such as 'specific' MCA or 'class specific' MCA.
 }
 
 \usage{tabcontrib(resmca, dim = 1)}
 
 \arguments{
-  \item{resmca}{object of class \code{'MCA'}, \code{'speMCA'}, or \code{'csMCA'}}
+  \item{resmca}{object of class \code{MCA}, \code{speMCA}, or \code{csMCA}}
   \item{dim}{dimension to describe (default is 1st dimension)}
 }
 
@@ -41,7 +41,7 @@ Le Roux B. and Rouanet H., \emph{Geometric Data Analysis: From Correspondence An
 \author{Nicolas Robette}
 
 \seealso{
-\code{\link{dimcontrib}}, \code{\link{dimdesc}}, \code{\link{dimdesc.MCA}}, \code{\link{dimeta2}}, \code{\link{condes}}, \code{\link{speMCA}}, \code{\link{csMCA}}
+\code{\link{dimcontrib}}, \code{\link{dimdesc}}, \code{\link{dimdescr}}, \code{\link{dimeta2}}, \code{\link{condes}}, \code{\link{speMCA}}, \code{\link{csMCA}}
 }
 
 \examples{

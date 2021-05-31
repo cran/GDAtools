@@ -1,4 +1,4 @@
-assoc.yx <- function(y,x,weights=rep(1,length(y)),xx=TRUE,twocont="kendall",nperm=1000,distrib="asympt",dec.a=3,dec.p=3) {
+assoc.yx <- function(y,x,weights=rep(1,length(y)),xx=TRUE,twocont="kendall",nperm=NULL,distrib="asympt",dec=c(3,3)) {
   
   x <- as.data.frame(x)
   xnames <- names(x)
@@ -32,6 +32,7 @@ assoc.yx <- function(y,x,weights=rep(1,length(y)),xx=TRUE,twocont="kendall",nper
       association = z$cramer.v
       permutation.pvalue = z$permutation.pvalue
     }
+    if(is.null(nperm)) permutation.pvalue <- NA
     res[[i]] <- data.frame(measure,association,permutation.pvalue, stringsAsFactors = F)
   }
   res <- do.call('rbind.data.frame',res)
@@ -41,8 +42,8 @@ assoc.yx <- function(y,x,weights=rep(1,length(y)),xx=TRUE,twocont="kendall",nper
   restot$measure <- gsub("spearman","Spearman's rho",restot$measure)
   restot$measure <- gsub("pearson","Pearson's r",restot$measure)
   rownames(restot) <- NULL
-  restot$association <- round(restot$association,dec.a)
-  restot$permutation.pvalue <- round(restot$permutation.pvalue,dec.p)
+  restot$association <- round(restot$association,dec[1])
+  restot$permutation.pvalue <- round(restot$permutation.pvalue,dec[2])
   
   if(xx==TRUE) {
     combi <- utils::combn(xnames,2,simplify=F)
@@ -75,6 +76,7 @@ assoc.yx <- function(y,x,weights=rep(1,length(y)),xx=TRUE,twocont="kendall",nper
         association = z$cramer.v
         permutation.pvalue = z$permutation.pvalue
       }
+      if(is.null(nperm)) permutation.pvalue <- NA
       res[[i]] <- data.frame(measure,association,permutation.pvalue, stringsAsFactors = F)
     }
     res <- do.call('rbind.data.frame',res)
@@ -85,8 +87,8 @@ assoc.yx <- function(y,x,weights=rep(1,length(y)),xx=TRUE,twocont="kendall",nper
     restot2$measure <- gsub("spearman","Spearman's rho",restot2$measure)
     restot2$measure <- gsub("pearson","Pearson's r",restot2$measure)
     rownames(restot2) <- NULL
-    restot2$association <- round(restot2$association,dec.a)
-    restot2$permutation.pvalue <- round(restot2$permutation.pvalue,dec.p)
+    restot2$association <- round(restot2$association,dec[1])
+    restot2$permutation.pvalue <- round(restot2$permutation.pvalue,dec[2])
   } else {
     restot2 <- NULL
   }

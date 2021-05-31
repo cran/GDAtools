@@ -1,4 +1,4 @@
-assoc.catcont <- function(x,y,weights=rep(1,length(x)),nperm=1000,distrib="asympt",digits=3) {
+assoc.catcont <- function(x,y,weights=rep(1,length(x)),nperm=NULL,distrib="asympt",digits=3) {
 
   eta.squared <- summary.lm(aov(y~x,weights=weights))$r.squared
   
@@ -41,5 +41,5 @@ assoc.catcont <- function(x,y,weights=rep(1,length(x)),nperm=1000,distrib="asymp
   if(is.null(nperm)) ppval <- NULL
 
   cor.coeff <- round(cor.coeff,digits)
-  return(list('eta.squared'=eta.squared, 'permutation.pvalue'=permutation.pvalue, 'cor.coeff'=cor.coeff, 'cor.perm.pval'=ppval))
+  return(list('eta.squared'=eta.squared, 'permutation.pvalue'=permutation.pvalue, 'cor'=cor.coeff, 'cor.perm.pval'=ppval))
 }

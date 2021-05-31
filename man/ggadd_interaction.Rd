@@ -2,7 +2,7 @@
 \alias{ggadd_interaction}
 
 \title{
-Adds the interaction between two categorical supplementary variables to a MCA cloud of variables with ggplot2
+Adds the interaction between two categorical supplementary variables to a cloud of variables
 }
 
 \description{
@@ -16,7 +16,7 @@ axes=c(1,2), col=NULL, textsize=5, legend='right')
 
 \arguments{
   \item{p}{ggplot object with the cloud of variables}
-  \item{resmca}{object of class \code{'MCA'}, \code{'speMCA'} or \code{'csMCA'}.}
+  \item{resmca}{object of class \code{MCA}, \code{speMCA}, \code{csMCA}, \code{stMCA} or \code{multiMCA}.}
   \item{v1}{Factor. The first categorical supplementary variable.}
   \item{v2}{Factor. The second categorical supplementary variable.}
   \item{sel1}{Numeric vector of indexes of the categories of the first supplementary variable to be used in interaction. By default, every categories are used.}
@@ -38,19 +38,19 @@ Le Roux B. and Rouanet H., \emph{Geometric Data Analysis: From Correspondence An
 \author{Nicolas Robette}
 
 \seealso{
-\code{\link{ggcloud_variables}}, \code{\link{ggadd_supvar}}, \code{\link{ggcloud_indiv}}, \code{\link{ggadd_ellipses}}
+\code{\link{ggcloud_variables}}, \code{\link{ggadd_supvar}}, \code{\link{ggcloud_indiv}}, \code{\link{ggadd_corr}}, \code{\link{ggadd_ellipses}}, \code{\link{ggadd_density}}
 }
 
 \examples{
-## Performs a specific MCA on 'Music' example data set
+## Performs a specific MCA on 'Taste' example data set
 ## ignoring every 'NA' (i.e. 'not available') categories,
 ## draws the cloud of categories
 ## and adds the interaction between Gender and Age.
-data(Music)
-getindexcat(Music[,1:5])
-mca <- speMCA(Music[,1:5],excl=c(3,6,9,12,15))
+data(Taste)
+getindexcat(Taste[,1:11])
+mca <- speMCA(Taste[,1:11],excl=c(3,6,9,12,15,18,21,24,27,30,33))
 p <- ggcloud_variables(mca, col='lightgrey', shapes=FALSE)
-ggadd_interaction(p, mca, Music$Gender, Music$Age)
+ggadd_interaction(p, mca, Taste$Gender, Taste$Age)
 }
 
 \keyword{ aplot }
