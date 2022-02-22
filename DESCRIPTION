@@ -1,12 +1,13 @@
 Package: GDAtools
 Type: Package
 Title: A Toolbox for Geometric Data Analysis and More
-Version: 1.7
+Version: 1.7.2
 Author: Nicolas Robette
 Maintainer: Nicolas Robette <nicolas.robette@uvsq.fr>
 Imports: MASS, wdm, FactoMineR, nleqslv, nnet, ggplot2, ggrepel,
         RColorBrewer, rlang, GGally
-Suggests: rmarkdown, knitr, rmdformats, cluster, WeightedCluster
+Suggests: rmarkdown, knitr, rmdformats, cluster, WeightedCluster, vcd,
+        R.rsp
 Description: Contains functions for 'specific' Multiple Correspondence Analysis, 
 	Class Specific Analysis, Multiple Factor Analysis, 'standardized' MCA, computing and plotting structuring factors and concentration ellipses, 
 	inductive tests and others tools for Geometric Data Analysis (Le Roux & Rouanet (2005) <doi:10.1007/1-4020-2236-0>). It also provides functions
@@ -14,13 +15,13 @@ Description: Contains functions for 'specific' Multiple Correspondence Analysis,
   measure for contingency tables ("Percentages of Maximum Deviation from Independence", aka PEM, see Cibois (1993) <doi:10.1177/075910639304000103>) and some tools to measure 
   and plot bivariate associations between variables
   (phi, Cramér V, correlation coefficient, eta-squared...).
-VignetteBuilder: knitr
+VignetteBuilder: R.rsp
 License: GPL (>= 2)
 Encoding: UTF-8
 URL: https://github.com/nicolas-robette/GDAtools,
         https://nicolas-robette.github.io/GDAtools/
 LazyData: true
 NeedsCompilation: no
-Packaged: 2021-05-31 09:02:18 UTC; nrobette
+Packaged: 2022-02-22 14:05:57 UTC; nrobette
 Repository: CRAN
-Date/Publication: 2021-05-31 09:40:08 UTC
+Date/Publication: 2022-02-22 14:40:02 UTC

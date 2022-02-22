@@ -1,3 +1,30 @@
+# GDAtools 1.7.2
+
+## Bug fixes
+
+* bug fix with in `medoids()`
+
+
+
+# GDAtools 1.7.1
+
+## New functions
+
+* `angles.csa()`: Computes the cosines similarities and angles between the dimensions of a CSA and those of a MCA.
+
+## Bug fixes
+
+* bug fix with vignettes
+* bug fix with NA values in `dichotom()` (thanks to @juba)
+* bug fix with dim option in `dimdescr()`
+
+## Changes in existing functions
+
+* `assoc.twocat()` : PEM are no longer computed.
+* `ggadd_supvar()` : for shapes, a value of 0 is mapped to a size of 0 and new shapesize option (as suggested by @osturnus)
+
+
+
 # GDAtools 1.7
 
 ## New functions
