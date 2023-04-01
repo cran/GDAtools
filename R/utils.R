@@ -1,46 +1,25 @@
-StatChull <- ggproto("StatChull", Stat,
-                     compute_group = function(data, scales) {
-                       data[chull(data$x, data$y), , drop = FALSE]
-                     },
-                     
-                     required_aes = c("x", "y")
-)
-
-stat_chull <- function(mapping = NULL, data = NULL, geom = "polygon",
-                       position = "identity", na.rm = FALSE, show.legend = NA, 
-                       inherit.aes = TRUE, ...) {
-  layer(
-    stat = StatChull, data = data, mapping = mapping, geom = geom, 
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
-  )
-}
-
-weighted.quantile <- function(x, w, probs = .5, method = "raw") {
-  if(method=="raw") {
-    w <- w[order(x)]
-    x <- x[order(x)]
-    Fx = cumsum(w)/sum(w)
-    rang <- max(which(Fx<probs))
-    res <- x[rang] + (0.5 - Fx[rang])/(Fx[rang+1] - Fx[rang]) * (x[rang+1] - x[rang])
-  }
-  if(method=="density") {
-    res <- with(density(x, weights = w/sum(w), n = 4096), 
-                x[which.max(cumsum(y*(x[2L] - x[1L])) >= probs)])
-  }
+getvarnames <- function(resmca) {
+  X <- resmca$call$X
+  var <- unlist(lapply(names(X), function(x) rep(x, nlevels(X[[x]]))))
+  cat <- unlist(lapply(X, levels))
+  varcat <- paste(var, cat, sep = ".")
+  res <- data.frame(var, cat, varcat)
+  rownames(res) <- NULL
   return(res)
 }
 
-weighted.mad <- function(x, w, method="raw") {
-  med <- weighted.quantile(x=x, w=w, method=method)
-  ad <- abs(x-med)
-  mad <- weighted.quantile(x=ad, w=w, method=method)
-  return(mad)
-}
 
-weighted.sd <- function(x, w) {
-  xm <- weighted.mean(x, w)
-  var <- weighted.mean((x-xm)^2, w)
-  sd <- sqrt(var)
-  return(sd)
+# cf vegan::procrustes()
+# https://github.com/vegandevs/vegan/blob/master/R/procrustes.R
+procu <- function(X, Y) {  
+  ctrace <- function(MAT) sum(MAT^2)
+  X <- scale(X, scale = FALSE)
+  Y <- scale(Y, scale = FALSE)
+  X <- X / sqrt(ctrace(X))
+  Y <- Y / sqrt(ctrace(Y))
+  XY <- crossprod(X, Y)
+  sol <- svd(XY)
+  A <- sol$v %*% t(sol$u)
+  Yrot <- Y %*% A
+  return(Yrot)
 }

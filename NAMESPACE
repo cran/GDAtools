@@ -1,20 +1,24 @@
-import(wdm,MASS,FactoMineR,nleqslv,nnet,ggplot2,ggrepel,RColorBrewer)
+import(descriptio, ggplot2, ggrepel)
 
   importFrom("grDevices", "col2rgb", "rainbow", "rgb")
-  importFrom("graphics", "abline", "lines", "plot", "points", "text")
-  importFrom("stats", "aggregate", "as.formula", "cor", "glm", "lm",
-             "quantile", "residuals", "weighted.mean", "aov", "chisq.test",
-             "cor.test", "median", "sd", "summary.lm",
-             "addmargins",
-             "pnorm",
-             "density")
-  importFrom("utils", "installed.packages", "combn")
-  importFrom("rlang", ".data", "as_name")
+  importFrom("graphics", "abline", "lines", "plot", "points", "text", "barplot")
+  importFrom("stats", "aggregate", "as.formula", "cor", "lm",
+             "residuals", "weighted.mean",
+             "summary.lm", "pnorm", "cutree",
+             "sd", "dist")
+  importFrom("utils", "combn")
+  importFrom("FactoMineR", "PCA", "CA", "reconst", "svd.triplet", "tab.disjonctif")
+  importFrom("rlang", ".data")
 
 S3method(plot, speMCA)
 S3method(plot, csMCA)
 S3method(plot, multiMCA)
 S3method(plot, stMCA)
 
-export(angles.csa,assoc.twocat,assoc.catcont,assoc.twocont,assoc.yx,burt,catdesc,conc.ellipse,condesc,contrib,csMCA,darma,dichotom,dimcontrib,dimdescr,dimeta2,dimtypicality,flip.mca,getindexcat,
-       ggadd_attractions,ggadd_chulls,ggadd_corr,ggadd_density,ggadd_ellipses,ggadd_interaction,ggadd_kellipses,ggadd_supind,ggadd_supvar,ggassoc_crosstab,ggassoc_phiplot,ggassoc_boxplot,ggassoc_scatter,ggcloud_indiv,ggcloud_variables,homog.test,indsup,medoids,modif.rate,multiMCA,pem,phi.table,plot.csMCA,plot.multiMCA,plot.speMCA,plot.stMCA,speMCA,stMCA,tabcontrib,textindsup,textvarsup,translate.logit,varsup,wtable)
+export(ahc.plots,angles.csa,assoc.twocat,assoc.catcont,assoc.twocont,assoc.yx,burt,catdesc,conc.ellipse,condesc,contrib,csMCA,darma,dichotom,dimcontrib,dimdescr,dimeta2,dimtypicality,dist.chi2,flip.mca,getindexcat,
+       ggadd_attractions,ggadd_chulls,ggadd_corr,ggadd_density,ggadd_ellipses,ggadd_interaction,ggadd_kellipses,ggadd_supind,ggadd_supvar,ggadd_supvars,
+       ggassoc_crosstab,ggassoc_phiplot,ggassoc_boxplot,ggassoc_scatter,ggaxis_variables,ggcloud_indiv,ggcloud_variables,
+       homog.test,ijunk,indsup,medoids,modif.rate,multiMCA,pem,phi.table,plot.csMCA,plot.multiMCA,plot.speMCA,plot.stMCA,quadrant,speMCA,stMCA,tabcontrib,textindsup,textvarsup,translate.logit,varsup,varsups,wtable,
+       planecontrib, quasindep, ggeta2_variables, ggsmoothed_supvar, bootvalid_variables, bootvalid_supvars, ggbootvalid_variables, ggbootvalid_supvars, 
+       bcMCA, bcPCA, wcMCA, wcPCA, PCAiv, PCAoiv, MCAiv, MCAoiv, coiPCA, coiMCA, rvcoef, gPCA, DA, DAQ, nsCA, nsca.biplot,
+       supind, supvar, supvars)
