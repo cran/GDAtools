@@ -1,23 +1,28 @@
-ggadd_supvars <- function(p, resmca, vars, axes = c(1,2), col = NULL, 
-                          shapes = FALSE, prop = NULL, textsize = 3, shapesize = 6, vname = TRUE) {
+ggadd_supvars <- function(p, resmca, vars, excl = NULL, points = "all", min.cos2 = 0.1,
+                          axes = c(1,2), col = NULL, 
+                          shapes = FALSE, prop = NULL, textsize = 3, shapesize = 6,
+                          vlab = TRUE, vname = NULL) {
 
   if(any(sapply(vars, FUN = function(x) !is.factor(x)))) stop("variables in data should all be factors")
 
+  if(!is.null(vname)) stop("vname argument is deprecated, please use vlab instead")
+  
   dim1 <- axes[1]
   dim2 <- axes[2]
   vs <- supvars(resmca, vars)
   coord <- as.data.frame(vs$coord[,axes])
   names(coord) <- c('axeX','axeY')
   coord$n <- vs$weight
-  coord$categories <- unlist(sapply(vars, levels))
+  coord$categories <- unlist(sapply(vars, levels, simplify = FALSE))
   nlev <- sapply(vars, nlevels)
   vnames <- character()
   for(i in 1:length(nlev)) vnames <- c(vnames, rep(names(vars[i]), nlev[i]))
   coord$vnames <- vnames
   coord$labs <- coord$categories
-  if(vname) coord$labs <- paste(coord$vnames, coord$labs, sep='.')
+  if(vlab) coord$labs <- paste(coord$vnames, coord$labs, sep='.')
   coord$vnames <- factor(coord$vnames)
 
+  # size of categories
   if(is.null(prop)) { coord$prop <- rep(1, nrow(coord))
   } else if(prop=='n') { coord$prop <- vs$weight
   } else if(prop=='vtest1') { coord$prop <- abs(vs$typic[,dim1])
@@ -25,6 +30,16 @@ ggadd_supvars <- function(p, resmca, vars, axes = c(1,2), col = NULL,
   } else if(prop=='cos1') { coord$prop <- vs$cos2[,dim1]
   } else if(prop=='cos2') { coord$prop <- vs$cos2[,dim2]
   } else if(prop=='cos12') coord$prop <- rowSums(vs$cos2[,axes])
+
+  # filter by cos2
+  if(points=="besth") { coord <- coord[vs$cos2[,dim1]>=min.cos2,]
+  } else if(points=="bestv") { coord <- coord[vs$cos2[,dim2]>=min.cos2,]
+  } else if(points=="besthv") { coord <- coord[vs$cos2[,dim1]>=min.cos2 | vs$cos2[,dim2]>=min.cos2,]
+  } else if(points=="best") { coord <- coord[rowSums(vs$cos2[,axes])>=min.cos2,]
+  } 
+  
+  # drop some categories
+  coord <- coord[!(rownames(coord) %in% excl),]
 
   if(!shapes) {
     if(is.null(col)) {
