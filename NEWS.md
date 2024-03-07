@@ -1,4 +1,23 @@
-# GDAtools 2.0.1
+# GDAtools 2.1
+
+## New function
+
+* `barplot_contrib()` : bar plot for contributions
+* `dichotomixed()` : dichotomizes the factor variables in a mixed format data frame
+
+## Changes in existing functions
+
+* `ggcloud_variables()` and `ggadd_supvars()` : new options ("force" and "max.overlaps") to adjust how text labels are repelled.
+
+## Tiny fixes
+
+* `dimdescr()` : fixed column names in the results + junk categories are not displayed for speMCA results
+* `ggadd_density()` : fixed deprecated ggplot2 arguments
+* `bcMCA()` : bug fix when there are junk categories 
+
+
+
+# GDAtools 2.0.1 [CRAN]
 
 ## Changes in existing functions
 

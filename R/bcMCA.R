@@ -4,12 +4,12 @@ bcMCA <- function(data, class, excl = NULL, row.w = NULL, ncp = 5) {
   if(any(sapply(data, FUN = function(x) !is.factor(x)))) stop("variables in data should all be factors")
   if(!is.factor(class)) stop("class should be a factor")
   if(is.character(excl)) excl <- which(getindexcat(data) %in% excl)
-  if(is.null(excl)) excl <- 99999
-  
+
   n <- sum(row.w)
   nk <- tapply(row.w, class, sum)
   pk <- as.vector(nk / n)
-  disj <- dichotom(data, out = "numeric")[,-excl]
+  disj <- dichotom(data, out = "numeric")
+  if(!is.null(excl)) disj <- disj[,-excl]
   centers <- sweep(t(as.matrix(dichotom(class)))%*%diag(row.w)%*%as.matrix(disj), 1, nk, "/")
   centers <- data.frame(centers)
   row.names(centers) <- levels(class)
@@ -22,7 +22,11 @@ bcMCA <- function(data, class, excl = NULL, row.w = NULL, ncp = 5) {
                         ncp = ncp, 
                         graph = FALSE)
   
-  mca <- FactoMineR::CA(disj, row.w = row.w, ncp = ncp, graph = FALSE)
+  mca <- FactoMineR::CA(dichotom(data, out = "numeric"),
+                        row.w = row.w,
+                        ncp = ncp,
+                        graph = FALSE,
+                        excl = excl)
   res$ratio <- sum(res$eig[,"eigenvalue"]) / sum(mca$eig[,"eigenvalue"])
   
   class(res) <- c("CA", "bcMCA", "list")
