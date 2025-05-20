@@ -4,14 +4,14 @@ bibentry(
   bibtype  = "manual",
   title    = "{GDAtools}: Geometric Data Analysis in {R}",
   author   = "Nicolas Robette",
-  year     = "2023",
-  note     = "R package version 2.0",
-  url      = "https://nicolas-robette.github.io/GDAtools/",
+  year     = "2025",
+  note     = "R package version 2.2",
+  url      = "https://nicolas-robette.frama.io/GDAtools/",
   
-  textVersion = paste("Robette N. (2023).",
+  textVersion = paste("Robette N. (2025).",
         "GDAtools: Geometric Data Analysis in R.",
-        "version 2.0.",
-        "https://nicolas-robette.github.io/GDAtools/")
+        "version 2.2.",
+        "https://nicolas-robette.frama.io/GDAtools/")
 )
 
 citFooter("See",sQuote("citation()"),"for citing R itself.")

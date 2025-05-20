@@ -10,6 +10,9 @@ ggeta2_variables <- function(resmca, axes = c(1,2)) {
   } else if(type %in% c("stMCA","multiMCA")) {
     rate1 <- modif.rate(resmca)$raw$rate[dim1]
     rate2 <- modif.rate(resmca)$raw$rate[dim2]
+  } else if(type == "bcMCA") {
+    rate1 <- resmca$eig$rate[dim1]
+    rate2 <- resmca$eig$rate[dim2]
   }
   
   df <- data.frame(resmca$var$eta2)[, axes]

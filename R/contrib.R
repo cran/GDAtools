@@ -1,9 +1,10 @@
 contrib <- function(resmca) {
+  
     s <- vector()
     for(i in 1:ncol(resmca$call$X)) s <- c(s,rep(i,times=length(levels(resmca$call$X[,i]))))
     e <- 99999
     classe <- class(resmca)[1] 
-    if(classe %in% c('speMCA','csMCA')) e <- resmca$call$excl 
+    if(classe %in% c('speMCA','csMCA','bcMCA')) e <- resmca$call$excl 
     s <- s[-e]
     dims <- paste('dim',1:resmca$call$ncp,sep='.')
     x <- aggregate(resmca$var$contrib,list(s),sum)[,-1]

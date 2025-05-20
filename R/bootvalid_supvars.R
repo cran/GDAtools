@@ -2,8 +2,11 @@ bootvalid_supvars <- function(resmca, vars = NULL, axes = c(1,2), K = 30) {
   
   if(is.null(vars)) stop("You should provide supplementary variables.")
   
+  type <- attr(resmca,'class')[1]
+  
   # donnees initiales
   X <- vars
+  if(type == "csMCA") X <- X[resmca$call$subcloud,]
   vs <- resmca$svd$vs[axes]
 
   bootco <- list()

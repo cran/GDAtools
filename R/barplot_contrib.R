@@ -1,6 +1,12 @@
 barplot_contrib <- function(resmca, dim = 1, 
                             which = "var", sort = FALSE, col = "tomato4", repel = FALSE) {
   
+  type <- attr(resmca,'class')[1]
+  
+  if(type == "bcMCA") {
+    if(which=="ind") stop("Contributions of individuals cannot be computed for objects created by bcMCA() function.")
+  }
+  
   ctr <- resmca[[which]]$contrib * sign(resmca[[which]]$coord)
   ctr <- as.data.frame(ctr)[,dim]
   names(ctr) <- rownames(resmca[[which]]$contrib)

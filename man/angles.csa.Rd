@@ -34,7 +34,7 @@ Le Roux B. and Rouanet H., \emph{Geometric Data Analysis: From Correspondence An
 \author{Nicolas Robette}
 
 \seealso{
-\code{\link{MCA}}, \code{\link{speMCA}}, \code{\link{csMCA}}
+\code{\link[FactoMineR]{MCA}}, \code{\link{speMCA}}, \code{\link{csMCA}}
 }
 
 \examples{

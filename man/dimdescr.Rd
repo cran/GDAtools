@@ -4,7 +4,7 @@
 \title{Description of the dimensions}
 
 \description{
-Identifies the variables and the categories that are the most characteristic according to each dimension obtained by a MCA. It is inspired by \code{\link{dimdesc}} function in \code{FactoMineR} package (see Husson et al, 2010), but allows to analyze variants of MCA, such as specific MCA or class specific MCA.
+Identifies the variables and the categories that are the most characteristic according to each dimension obtained by a MCA. It is inspired by \code{\link[FactoMineR]{dimdesc}} function in \code{FactoMineR} package (see Husson et al, 2010), but allows to analyze variants of MCA, such as specific MCA or class specific MCA.
 }
 
 \usage{
@@ -15,7 +15,8 @@ dimdescr(resmca, vars = NULL, dim = c(1,2),
          shortlabs = TRUE)}
 
 \arguments{
-  \item{resmca}{object of class \code{MCA}, \code{speMCA}, \code{csMCA}, \code{stMCA} or \code{multiMCA}}
+  \item{resmca}{object created with \code{MCA}, \code{speMCA}, \code{csMCA}, \code{wcMCA}, \code{bcMCA}, \code{stMCA} or \code{multiMCA} function
+}
   \item{vars}{data frame of variables to describes the MCA dimensions with. If NULL (default), the active variables of the MCA will be used.}
   \item{dim}{the dimensions which are described. Default is c(1,2)}
   \item{limit}{for the relationship between a dimension and a categorical variable, only associations (measured with point-biserial correlations) higher or equal to limit will be displayed. If NULL (default), they are all displayed.}

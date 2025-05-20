@@ -23,3 +23,30 @@ procu <- function(X, Y) {
   Yrot <- Y %*% A
   return(Yrot)
 }
+
+
+agg.wtd.mean <- function(x, by, w) {
+  res <- split(data.frame(w,x), by)
+  if(ncol(res[[1]])==2) {
+    res <- data.frame(mean = sapply(res, function(z) weighted.mean(z[,2], z[,1])))
+  } else {
+    res <- do.call("rbind.data.frame", args = lapply(res, function(z) sapply(z[,-1], weighted.mean, w = z[,1])))
+    colnames(res) <- colnames(x)
+    rownames(res) <- levels(by)
+  }
+  return(res)
+}
+
+
+agg.wtd.var <- function(x, by, w) {
+  res <- split(data.frame(w,x), by)
+  if(ncol(res[[1]])==2) {
+    res <- data.frame(mean = sapply(res, function(z) descriptio::weighted.sd(z[,2], z[,1])))
+  } else {
+    res <- do.call("rbind.data.frame", args = lapply(res, function(z) sapply(z[,-1], descriptio::weighted.sd, weights = z[,1])))
+    rownames(res) <- levels(by)
+    colnames(res) <- colnames(x)
+  }
+  res <- res * res
+  return(res)
+}

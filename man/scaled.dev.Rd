@@ -1,27 +1,26 @@
-\name{homog.test}
+\name{scaled.dev}
 
-\alias{homog.test}
+\alias{scaled.dev}
 
-\title{Homogeneity test for a categorical supplementary variable}
+\title{Scaled deviations for a categorical supplementary variable}
 
 \description{
-   From MCA results, computes a homogeneity test between categories of a supplementary variable, i.e. 
-   characterizes the homogeneity of several subclouds.
+   From MCA results, computes scaled deviations between categories for 
+   a categorical supplementary variable.
 }
 
-\usage{homog.test(resmca, var, dim = c(1,2))}
+\usage{
+scaled.dev(resmca, var)
+}
 
 \arguments{
   \item{resmca}{object created with \code{MCA}, \code{speMCA}, \code{csMCA}, \code{wcMCA}, \code{bcMCA}, \code{stMCA} or \code{multiMCA} function}
   \item{var}{the categorical supplementary variable. It does not need to have been used at the MCA step.}
-  \item{dim}{the axes which are described. Default is c(1,2)}
 }
 
 \value{
-  Returns a list of lists, one for each selected dimension in the MCA.
-  Each list has 2 elements :
-  \item{test.stat}{The square matrix of test statistics}
-  \item{p.values}{The square matrix of p-values}
+  Returns a list with one matrix for each dimension of the MCA.
+  Each matrix is filled with scaled deviations between the categories of the supplementary variable, for a given dimension.
 }
 
 \references{
@@ -33,7 +32,7 @@ Le Roux B. and Rouanet H., \emph{Geometric Data Analysis: From Correspondence An
 \author{Nicolas Robette}
 
 \seealso{
-\code{\link{supvar}}, \code{\link{supvars}}, \code{\link{dimtypicality}}
+\code{\link{supvar}}, \code{\link{supvars}}, \code{\link{ggadd_supvar}}, \code{\link{ggadd_supvars}}, \code{\link{textvarsup}}, \code{\link{supind}}
 }
 
 \examples{
@@ -41,8 +40,8 @@ Le Roux B. and Rouanet H., \emph{Geometric Data Analysis: From Correspondence An
 data(Music)
 junk <- c("FrenchPop.NA", "Rap.NA", "Rock.NA", "Jazz.NA", "Classical.NA")
 mca <- speMCA(Music[,1:5], excl = junk)
-# homogeneity test for variable Age
-homog.test(mca, Music$Age)
+# computes scaled deviations for Age supplementary variable
+scaled.dev(mca,Music$Age)
 }
 
 \keyword{ multivariate }

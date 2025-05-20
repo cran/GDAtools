@@ -28,7 +28,7 @@ Anja Struyf, Mia Hubert & Peter J. Rousseeuw (1996). "Clustering in an Object-Or
 \author{Nicolas Robette}
 
 \seealso{
-\code{\link{dist}}, \code{\link{cluster}}, \code{\link{hclust}}, \code{\link{cutree}} , \code{\link{pam}} 
+\code{\link{dist}}, \code{\link{hclust}}, \code{\link{cutree}} , \code{\link[cluster]{pam}} 
 }
 
 \examples{

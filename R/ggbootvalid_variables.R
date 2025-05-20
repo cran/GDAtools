@@ -5,10 +5,12 @@ ggbootvalid_variables <- function(resmca, axes = c(1,2), type = "partial", K = 3
   if(classe %in% c("MCA","speMCA","csMCA")) {
     rate1 <- modif.rate(resmca)$modif$mrate[axes[1]]
     rate2 <- modif.rate(resmca)$modif$mrate[axes[2]]
-  }
-  if(classe %in% c("stMCA","multiMCA","PCA")) {
+  } else if(classe %in% c("stMCA","multiMCA","PCA")) {
     rate1 <- modif.rate(resmca)$raw$rate[axes[1]]
     rate2 <- modif.rate(resmca)$raw$rate[axes[2]]
+  } else if(classe == "bcMCA") {
+    rate1 <- resmca$eig$rate[axes[1]]
+    rate2 <- resmca$eig$rate[axes[2]]
   }
 
   noms <- getvarnames(resmca)

@@ -63,6 +63,10 @@ ggcloud_indiv <- function(resmca, type = "i", points = "all", axes = c(1,2),
     rate1 <- modif.rate(resmca)$raw$rate[dim1]
     rate2 <- modif.rate(resmca)$raw$rate[dim2]
   }
+  if(type == "bcMCA") {
+    rate1 <- resmca$eig$rate[dim1]
+    rate2 <- resmca$eig$rate[dim2]
+  }
   
   p + ggplot2::geom_hline(yintercept = 0, colour = "darkgrey", linewidth = .1) +
       ggplot2::geom_vline(xintercept = 0, colour = "darkgrey", linewidth = .1) +
