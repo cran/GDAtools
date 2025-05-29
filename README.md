@@ -9,6 +9,7 @@
 [![](https://img.shields.io/gitlab/last-commit/nicolas-robette%2FGDAtools?gitlab_url=https%3A%2F%2Fframagit.org)](https://img.shields.io/gitlab/last-commit/nicolas-robette%2FGDAtools?gitlab_url=https%3A%2F%2Fframagit.org)
 [![](https://www.r-pkg.org/badges/version/GDAtools?color=blue)](https://cran.r-project.org/package=GDAtools)
 [![](https://www.r-pkg.org/badges/last-release/GDAtools?color=blue)](https://cran.r-project.org/package=GDAtools)
+[1] "[![](https://img.shields.io/badge/DOI-10.32614/CRAN.package.GDAtools-1f57b6?style=flat&link=https://doi.org/10.32614/CRAN.package.GDAtools)](https://doi.org/10.32614/CRAN.package.GDAtools)"
 [![](http://cranlogs.r-pkg.org/badges/last-month/GDAtools?color=orange)](https://cran.r-project.org/package=GDAtools)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/GDAtools?color=orange)](https://cran.r-project.org/package=GDAtools)
 <!-- badges: end -->
@@ -58,7 +59,7 @@ install_git("https://framagit.org/nicolas-robette/GDAtools")
 
 To cite `GDAtools` in publications, use :
 
-Robette N. (2024), *`GDAtools` : Geometric Data Analysis in `R`*, version 2.1, https://nicolas-robette.github.io/GDAtools/
+Robette N. (2025), *`GDAtools` : Geometric Data Analysis in `R`*, version 2.2, https://nicolas-robette.frama.io/GDAtools/
 
 <br>
 

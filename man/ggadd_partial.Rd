@@ -4,11 +4,11 @@
 \title{Main and partial effect of a supplementary variable}
 
 \description{
-Adds the main and partial effects of a supplmentary variable to a MCA cloud of individuals, with one or more supplementary partialled out
+Adds the main and partial effects of a supplementary variable to a MCA cloud of individuals, with one or more supplementary partialled out
 }
 
 \usage{
-ggadd_partial(p, resmca, var, control, sel = 1:nlevels(var),
+ggadd_partial(p, resmca, var, controls, excl = NULL,
 axes = c(1,2), col = "black", textsize = 4, lines = TRUE, dashes = TRUE, 
 legend = "right", force = 1, max.overlaps = Inf)
 }
@@ -17,8 +17,8 @@ legend = "right", force = 1, max.overlaps = Inf)
   \item{p}{\code{ggplot2} object with the cloud of variables or the cloud of individuals}
   \item{resmca}{object created with \code{MCA}, \code{speMCA}, \code{csMCA}, \code{wcMCA}, \code{bcMCA}, \code{stMCA} or \code{multiMCA} function}
   \item{var}{factor. The categorical supplementary variable.}
-  \item{control}{data frame of supplementary variables to be partialled out (i.e. control variables)}
-  \item{sel}{numeric vector of indexes of the categories of the supplementary variable. By default, every categories are used.}
+  \item{controls}{data frame of supplementary variables to be partialled out (i.e. control variables)}
+  \item{excl}{character vector of categories from the var to exclude from the plot. If NULL (default), all the supplementary categories are plotted.}
   \item{axes}{numeric vector of length 2, specifying the components (axes) to plot. Default is c(1,2).}
   \item{col}{the color for the labels and lines. Default is "black".}
   \item{textsize}{size of the labels of categories. Default is 4.}
@@ -32,7 +32,7 @@ legend = "right", force = 1, max.overlaps = Inf)
 \value{a \code{ggplot2} object}
 
 \note{
-Coordinates of the partial effect of the supplementary variables are derives from linear regression, with individual coordinates as dependent variable, and the supplementary and control variables as independent variables.
+The partial effects of the supplementary variable are computed with the Average Marginal Effects of a linear regression, with individual coordinates as dependent variable, and the supplementary and control variables as independent variables.
 }
 
 \references{

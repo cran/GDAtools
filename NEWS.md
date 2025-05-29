@@ -1,4 +1,17 @@
-# GDAtools 2.2
+# GDAtools 2.3
+
+## New function
+
+* `break_interaction()` : Computes three additive breakdown of variances for the interaction between two supplementary variables
+
+## Changes in existing functions
+
+* `ggadd_partial()` : partial effects are now computed with Average Marginal Effects from linear regressions
+* `ggadd_partial()` : `sel` argument replaced by `excl`, `control` argument renamed in `controls`
+
+
+
+# GDAtools 2.2 [CRAN]
 
 ## New function
 

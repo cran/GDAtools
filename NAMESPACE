@@ -24,4 +24,5 @@ export(ahc.plots,angles.csa,assoc.twocat,assoc.catcont,assoc.twocont,assoc.yx,bu
        supind, supvar, supvars, scaled.dev,
        barplot_contrib,
        reshape_between,
-       ggadd_partial)
+       ggadd_partial,
+       break_interaction)

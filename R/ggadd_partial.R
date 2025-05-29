@@ -1,8 +1,8 @@
 ggadd_partial <- function(p, 
                           resmca,
                           var,
-                          control,
-                          sel = 1:nlevels(var),
+                          controls,
+                          excl = NULL,
                           axes = c(1,2),
                           col = "black",
                           textsize = 4,
@@ -12,7 +12,7 @@ ggadd_partial <- function(p,
                           force = 1, 
                           max.overlaps = Inf) {
   
-  control <- as.data.frame(control)
+  controls <- as.data.frame(controls)
   
   type <- attr(resmca,'class')[1]
   
@@ -27,38 +27,46 @@ ggadd_partial <- function(p,
   if(type=="stMCA") type <- resmca$call$input.mca
   if(type=="csMCA") {
     var <- var[resmca$call$subcloud]
-    control <- control[resmca$call$subcloud,]
+    controls <- controls[resmca$call$subcloud,]
   }
   if(type=="multiMCA") {
     if(class(resmca$my.mca[[1]])[1]=="csMCA") {
       var <- var[resmca$my.mca[[1]]$call$subcloud]
-      control <- control[resmca$my.mca[[1]]$call$subcloud,]
+      controls <- controls[resmca$my.mca[[1]]$call$subcloud,]
     }
   }
 
   var <- factor(var)
-  control <- sapply(control, factor)
+  controls <- sapply(controls, factor)
   
   wvar <- descriptio::weighted.table(var, weights = wt)
   
   ind <- as.data.frame(resmca$ind$coord)[,axes]
   
+  # main effects
   coord_main <- agg.wtd.mean(ind, var, wt)
   coord_main$cat <- rownames(coord_main)
   coord_main$type <- rep("main", nrow(coord_main))
 
-  coord_partial <- 
-    lapply(ind, function(x) coef(lm(dim ~ . - 1, weights = wt, data = data.frame(dim = x, var, control))))
-  coord_partial <- as.data.frame(t(do.call("rbind", args = coord_partial)))
-  coord_partial <- coord_partial[1:nlevels(var),]
-  coord_partial$cat <- levels(var)
-  coord_partial$type <- rep("partial", nrow(coord_partial))
-  coord_partial[,1] <- coord_partial[,1] - weighted.mean(coord_partial[,1], wvar)
-  coord_partial[,2] <- coord_partial[,2] - weighted.mean(coord_partial[,2], wvar)
+  # partial effects
+  new <- replicate(nlevels(var), data.frame(var, controls), simplify = FALSE)
+  new <- do.call("rbind.data.frame", new)
+  new$var <- unlist(sapply(levels(var), function(x) rep(x, length(var)), simplify = FALSE))
+  res <- list()
+  for(i in 1:ncol(ind)) {
+    model <- lm(dim ~ ., weights = wt, data = data.frame(dim = ind[,i], var, controls))
+    pred <- stats::predict(model, new, type = "response")
+    res[[i]] <- agg.wtd.mean(pred, new$var, rep(wt, nlevels(var)))
+  }
+  coord_partial <- do.call("cbind.data.frame", res)
+  names(coord_partial) <- names(ind)
+  coord_partial$cat <- rownames(coord_partial)
+  coord_partial$type <- rep("part", nrow(coord_partial))
 
+  # bond main and partial effects
   coord <- rbind.data.frame(coord_main, coord_partial)
   names(coord)[1:2] <- c('axeX','axeY')
-  coord <- coord[coord$cat %in% levels(var)[sel],]
+  coord <- coord[!coord$cat %in% excl,]
   coord$cat <- factor(coord$cat)
   coord$type <- factor(coord$type)
 

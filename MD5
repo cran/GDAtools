@@ -1,6 +1,6 @@
-6b21e86afa56ac7c841ce55539411fd3 *DESCRIPTION
-2d6e6aef680c8681eb1febb08bf0efec *NAMESPACE
-b3f59cb5f1264fcb3963a0fece421ed2 *NEWS.md
+4a209877e5c8f66808410218098cfeae *DESCRIPTION
+80044b1b3e7e40e0365681e06da0d2f6 *NAMESPACE
+9a66861d0fa783406972f430611e34d7 *NEWS.md
 14078eb39fa82b0e555fee5b1c86a820 *R/DA.R
 36d79d15dc3db6185820d6f72764d347 *R/DAQ.R
 dd27de4d996c8b4bfd08042a161fa28b *R/MCAiv.R
@@ -14,6 +14,7 @@ fe84fcd0688d4e8052d7efb1680953cc *R/barplot_contrib.R
 dd71c693d4999ffb1374ea5b2935fb31 *R/bcPCA.R
 82e01e09af62841e9652363c9d1e19ba *R/bootvalid_supvars.R
 f1ebad21dc0880e9d6c57b9dd276fe18 *R/bootvalid_variables.R
+77b93c36bcbeb6fbb9418533a650e020 *R/break_interaction.R
 2da1739639d0303cbf9bf006c58df3fb *R/burt.R
 80e0bb2e8646bb93f55fd94dec58bc43 *R/coiMCA.R
 8412b0c24a9f44a26adf10012076c3f7 *R/coiPCA.R
@@ -38,7 +39,7 @@ d937c906f14fd2088bb258125ad23276 *R/ggadd_corr.R
 cef290bd4e5cd89da5cc9e73fdf132df *R/ggadd_ellipses.R
 0e689b6b61f56c0069d9ff7c4fee9d1f *R/ggadd_interaction.R
 c9876cd6a1f3607e0466a495e30441aa *R/ggadd_kellipses.R
-aa2ed76aeedb99b0b3b63e59e3be4212 *R/ggadd_partial.R
+8540a3d1cedb3b392cc6d9d409c03ab1 *R/ggadd_partial.R
 12fa980f6addb92d2c31c97fbbcb3712 *R/ggadd_supind.R
 c15a3dde3381caa0269ff872d6a79c67 *R/ggadd_supvar.R
 0e992da1c84513bf84545f65b71146e6 *R/ggadd_supvars.R
@@ -79,7 +80,7 @@ a5f1e59ac33847f5090a4041f41214cf *R/textvarsup.R
 407031ec4a6b58123c2678b98395287f *R/utils.R
 d6c4c252b4b843add63f2467d584f27b *R/wcMCA.R
 4f185190f318eff07febb99e91fd8663 *R/wcPCA.R
-d30a8e4b22a9735336ee2f3bd0a8ffbb *README.md
+5f3c162fbc667a2112b05630c0643954 *README.md
 f429d12420f9b4691c34b64970ffb6d0 *data/Music.RData
 6168f53da8386cb8d1884385011844a0 *data/Taste.RData
 ec9fc3f47817196825ec127b131ccba2 *inst/CITATION
@@ -98,6 +99,7 @@ a17a05807dca50aae0e6a0aaa1ba97fc *man/bcMCA.Rd
 c1fc793c2a1db048568ccd759d005020 *man/bcPCA.Rd
 981e0d8b8cc48af024b2cc5d20432ea7 *man/bootvalid_supvars.Rd
 ff13c1f49ba471f8dcb37b73297e4650 *man/bootvalid_variables.Rd
+04edf8a4ce11c84826e61aa1be1f0f90 *man/break_interaction.Rd
 b50b36a46a7f31875b15fcea238e48a8 *man/burt.Rd
 ef79fcd258e72ed808055c8e816de097 *man/coiMCA.Rd
 8d27394de4c6b982fc4308c1fce00167 *man/coiPCA.Rd
@@ -124,7 +126,7 @@ b83c47d2ff5a878396a2625689380354 *man/ggadd_density.Rd
 6ab753cff8f8045b9039d6420940bc47 *man/ggadd_ellipses.Rd
 7a1994a55df95f44d45e219d211e1dd3 *man/ggadd_interaction.Rd
 898a8de42c9f63e791128816bdcbc257 *man/ggadd_kellipses.Rd
-9aaabcd8fc8b06f8cf4fa2bf26adefd9 *man/ggadd_partial.Rd
+bed0534305ff57458b4d9290ffb6cdee *man/ggadd_partial.Rd
 50b8445cc6caff3bd978ae74cf5cdca1 *man/ggadd_supind.Rd
 07dbc6dd6c1eb1bb77a89614a25a80d0 *man/ggadd_supvar.Rd
 a1da95ce838fa13c99a58a9698f08733 *man/ggadd_supvars.Rd
